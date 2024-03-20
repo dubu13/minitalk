@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:14:13 by dhasan            #+#    #+#             */
-/*   Updated: 2024/03/19 20:57:31 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:25:01 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 
 void	send_signal(pid_t server_pid, char c)
 {
-	int	i;
+	int				i;
+	unsigned char	b_char;
 
 	i = 8;
-	while (i--)
+	while (i > 0)
 	{
-		if ((c >> i) % 2 == 1)
+		i--;
+		b_char = c >> i;
+		if (b_char % 2 == 1)
 			kill(server_pid, SIGUSR1);
 		else
 			kill(server_pid, SIGUSR2);
+		usleep(42);
 	}
 }
 

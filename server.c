@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:14:15 by dhasan            #+#    #+#             */
-/*   Updated: 2024/03/19 21:09:19 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/03/20 17:54:28 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 
 void	handle_signal(int signal)
 {
-	static int	bit;
-	static char	c;
+	static int				bit_index;
+	static unsigned char	c;
 
+	bit_index = 0;
+	c = 0;
 	if (signal == SIGUSR1)
-		c |= (1 << bit);
-	bit++;
-	if (bit == 8)
+		c |= (1 << (7 - bit_index));
+	bit_index++;
+	if (bit_index == 8)
 	{
 		ft_printf("%c", c);
-		bit = 0;
+		bit_index = 0;
 		c = 0;
 	}
 }
@@ -37,5 +39,9 @@ int	main(int argc, char **argv)
 		ft_printf("Server PID: %d\n", getpid());
 		signal(SIGUSR1, handle_signal);
 		signal(SIGUSR2, handle_signal);
+		while (1)
+			pause();
 	}
+	else
+		return (1);
 }
