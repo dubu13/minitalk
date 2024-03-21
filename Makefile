@@ -1,40 +1,59 @@
 CLIENT_NAME = client
 SERVER_NAME = server
 
+CLIENT_BONUS_NAME = client_bonus
+SERVER_BONUS_NAME = server_bonus
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 CLIENT_SRCS = client.c
 SERVER_SRCS = server.c
 
-CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
-SERVER_OBJS = $(SERVER_SRCS:.c=.o)
+CLIENT_BONUS_SRCS = client_bonus.c
+SERVER_BONUS_SRCS = server_bonus.c
 
-LIBFT_PATH = ./libft
-LIBFT = $(LIBFT_PATH)/libft.a
+CLIENT_BONUS_OBJS = $(CLIENT_BONUS_SRCS:.c=.o)
+SERVER_BONUS_OBJS = $(SERVER_BONUS_SRCS:.c=.o)
+
+PRINTF_PATH = ./printf
+PRINTF = $(PRINTF_PATH)/printf.a
 
 all: $(CLIENT_NAME) $(SERVER_NAME)
 
-$(CLIENT_NAME): $(LIBFT) $(CLIENT_OBJS)
-	@cc $(CFLAGS) $(LIBFT) -o $(CLIENT_NAME) $(CLIENT_OBJS)
+bonus: $(CLIENT_BONUS_NAME) $(SERVER_BONUS_NAME)
 
-$(SERVER_NAME): $(LIBFT) $(SERVER_OBJS)
-	@cc $(CFLAGS) $(LIBFT) -o $(SERVER_NAME) $(SERVER_OBJS)
+$(CLIENT_NAME): $(PRINTF) $(CLIENT_OBJS)
+	@cc $(CFLAGS) $(PRINTF) -o $(CLIENT_NAME) $(CLIENT_OBJS)
 
-$(LIBFT):
-	@make -C $(LIBFT_PATH)
+$(SERVER_NAME): $(PRINTF) $(SERVER_OBJS)
+	@cc $(CFLAGS) $(PRINTF) -o $(SERVER_NAME) $(SERVER_OBJS)
+
+
+$(CLIENT_BONUS_NAME): $(PRINTF) $(CLIENT_BONUS_OBJS)
+	@cc $(CFLAGS) $(PRINTF) -o $(CLIENT_BONUS_NAME) $(CLIENT_BONUS_OBJS)
+
+$(SERVER_BONUS_NAME): $(PRINTF) $(SERVER_BONUS_OBJS)
+	@cc $(CFLAGS) $(PRINTF) -o $(SERVER_BONUS_NAME) $(SERVER_BONUS_OBJS)
+
+$(PRINTF):
+	@make -C $(PRINTF_PATH)
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@make clean -C $(LIBFT_PATH)
+	@make clean -C $(PRINTF_PATH)
 	@rm -f $(CLIENT_OBJS) $(SERVER_OBJS)
+	@rm -f $(CLIENT_BONUS_OBJS) $(SERVER_BONUS_OBJS)
 
 fclean: clean
 	@rm -f $(CLIENT_NAME) $(SERVER_NAME)
-	@make fclean -C $(LIBFT_PATH)
+	@rm -f $(CLIENT_BONUS_NAME) $(SERVER_BONUS_NAME)
+	@make fclean -C $(PRINTF_PATH)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+rebonus: fclean bonus
+
+.PHONY: all clean fclean re rebonus
