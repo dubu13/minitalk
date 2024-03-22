@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:22:41 by dhasan            #+#    #+#             */
-/*   Updated: 2024/03/21 21:56:50 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/03/22 19:32:07 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,7 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+//have to change pid ascii to int
+//for each character calls 'send_signal' func w PID
+//'send_signal' converts chars into binary and
+//sends each bit to the server as a signal.

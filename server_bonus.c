@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 20:22:18 by dhasan            #+#    #+#             */
-/*   Updated: 2024/03/21 21:55:56 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/03/22 19:32:26 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 		if (c != '\0')
 			ft_printf("%c", c);
 		else
+		{
+			ft_printf("\n");
 			kill(client_pid, SIGUSR1);
+		}
 		bit_index = 0;
 		c = 0;
 	}
@@ -52,3 +55,8 @@ int	main(int argc, char **argv)
 		pause();
 	return (0);
 }
+//sa_sigaction is a pointer to 'handle_signal'
+//sa_flags set to SA_SIGINFO flag to receive the pid of the client
+//sa_mask is init an empty signal set, so no signals are blocked
+//sigaction() more flexible
+//pid_t si_pid is the sending process ID

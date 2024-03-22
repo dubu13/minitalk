@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 20:22:29 by dhasan            #+#    #+#             */
-/*   Updated: 2024/03/21 21:57:04 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/03/22 19:32:11 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,4 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+//msg_confirm() func prints a message when the server receives a message
